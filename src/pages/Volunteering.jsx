@@ -1,5 +1,5 @@
 import React from "react";
-import RegistrationForm from "../components/RegistrationForm";
+import RegistrationForm from "../containers/Registration/RegistrationForm";
 import { Paper, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
