@@ -3,11 +3,12 @@ import "./App.css";
 import { Router } from "@reach/router";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import ErrorDisplayer from "./components/ErrorDisplayer";
+import Header from "./components/Header";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header" />
+      <Header />
       <PerfectScrollbar>
         <Router>
           <ErrorDisplayer default />
