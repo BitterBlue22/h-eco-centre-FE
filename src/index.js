@@ -6,6 +6,8 @@ import thunkMiddleware from "redux-thunk";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "./theme";
 
 const rootReducer = combineReducers({});
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
@@ -13,7 +15,9 @@ const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
