@@ -3,22 +3,32 @@ import {
   Grid,
   TextField,
   Typography,
-  FormGroup,
-  FormLabel,
-  Checkbox,
-  FormControlLabel,
-  FormHelperText,
-  FormControl,
+  Button,
   makeStyles,
 } from "@material-ui/core";
 import DaysChecklist from "./DaysChecklist";
 import InterestsChecklist from "./InterestsChecklist";
+import TextBox from "../../components/TextBox";
+import Terms from "../../components/Terms";
+import DatePickers from "../../components/DatePicker";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+  },
+  button: {
+    margin: theme.spacing(2),
+    backgroundColor: theme.palette.secondary.main,
+  },
+}));
 
 const RegistrationForm = () => {
+  const classes = useStyles();
   return (
     <form>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6} lg={3}>
+      <Typography variant="h2">Volunteer registration</Typography>
+      <Grid container spacing={3} justify="space-evenly">
+        <Grid item xs={12} md={6}>
           <TextField
             required
             id="first-name"
@@ -28,7 +38,7 @@ const RegistrationForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
+        <Grid item xs={12} md={6}>
           <TextField
             required
             id="last-name"
@@ -38,7 +48,7 @@ const RegistrationForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
+        <Grid item xs={12} md={6}>
           <TextField
             required
             id="address"
@@ -48,7 +58,7 @@ const RegistrationForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
+        <Grid item xs={12} md={6}>
           <TextField
             required
             id="postcode"
@@ -58,7 +68,7 @@ const RegistrationForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
+        <Grid item xs={12} md={6}>
           <TextField
             required
             id="mobile"
@@ -68,7 +78,7 @@ const RegistrationForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
+        <Grid item xs={12} md={6}>
           <TextField
             id="alternative-number"
             label="Alternative number"
@@ -77,28 +87,21 @@ const RegistrationForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
+        <Grid item xs={12} md={6}>
           <TextField
             required
             id="email"
             label="Email"
             variant="outlined"
+            type="email"
             placeholder="e.g. tsmith@gmail.com"
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <TextField
-            required
-            id="dob"
-            label="Date of Birth"
-            placeholder="e.g. 07/03/1994"
-            variant="outlined"
-            fullWidth
-          />
+        <Grid item xs={12} md={6}>
+          <DatePickers label={"Date of birth"} />
         </Grid>
-      </Grid>
-      <Grid container spacing={3}>
+
         <Grid item xs={12} md={6}>
           <Typography>
             Which days are you usually available to volunteer?
@@ -111,6 +114,34 @@ const RegistrationForm = () => {
           </Typography>
           <InterestsChecklist />
         </Grid>
+        <Grid item xs={12}>
+          <Typography>
+            Do you have any special/relevant skills or qualifications? Please
+            specify:
+          </Typography>
+          <TextBox id={"special-skills"} />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>
+            Do you consider yourself to have a disability? If yes, please
+            specify:
+          </Typography>
+          <TextBox id={"disabilities"} />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="body1">
+            Please feel free to send a copy of your CV separately. This will
+            help us to understand how your skill sets may best fit our project.
+            You can send your CV to: enquiries@positiveactivities.org.
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>
+            Positive Activites Privacy Policy, Terms and Conditions
+          </Typography>
+          <Terms />
+        </Grid>
+        <Button className={classes.button}>Submit</Button>
       </Grid>
     </form>
   );
