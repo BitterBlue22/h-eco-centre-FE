@@ -20,14 +20,21 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
     backgroundColor: theme.palette.secondary.main,
   },
+  terms: {
+    backgroundColor: "#f6d60e",
+  },
 }));
 
 const RegistrationForm = () => {
   const classes = useStyles();
   return (
     <form>
-      <Typography variant="h2">Volunteer registration</Typography>
       <Grid container spacing={3} justify="space-evenly">
+        <Grid item xs={12}>
+          <Typography variant="h2" align="center">
+            Volunteer registration
+          </Typography>
+        </Grid>
         <Grid item xs={12} md={6}>
           <TextField
             required
@@ -136,9 +143,14 @@ const RegistrationForm = () => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography>
+          <Button
+            href="http://www.positiveactivities.org/privacy-policy/"
+            className={classes.terms}
+          >
             Positive Activites Privacy Policy, Terms and Conditions
-          </Typography>
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
           <Terms />
         </Grid>
         <Button className={classes.button}>Submit</Button>

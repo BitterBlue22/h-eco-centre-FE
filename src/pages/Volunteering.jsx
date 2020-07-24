@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   root: { flexGrow: 0 },
   paper: {
     padding: "1rem",
-    margin: "1rem",
+    margin: "2rem",
   },
 }));
 
