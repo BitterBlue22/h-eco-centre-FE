@@ -12,7 +12,7 @@ import Partners from "./pages/Partners";
 import Activities from "./pages/Activities";
 import Volunteering from "./pages/Volunteering";
 import Events from "./pages/Events";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
           <ErrorDisplayer default />
         </Router>
       </PerfectScrollbar>
-      <Footer />
+      {/* There is no footer component in the components folder: <Footer /> */}
     </div>
   );
 }
