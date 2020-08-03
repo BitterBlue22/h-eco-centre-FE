@@ -9,6 +9,8 @@ const localizer = momentLocalizer(moment);
 
 class EventsCalendar extends Component {
   state = {
+    isDialogOpen: false,
+    eventInformation: "",
     events: [
       {
         id: 0,
@@ -126,7 +128,11 @@ class EventsCalendar extends Component {
   };
 
   handleOpenModal(event) {
-    alert(event.id);
+    this.setState({ isDialogOpen: true, eventInformation: event.id });
+  }
+
+  handleCloseModal() {
+    this.setState({ isDialogOpen: false });
   }
 
   render() {
