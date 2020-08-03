@@ -5,7 +5,7 @@ import { Paper, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: { flexGrow: 0 },
   paper: {
-    padding: "1rem",
+    padding: "2rem",
     margin: "2rem",
   },
 }));
