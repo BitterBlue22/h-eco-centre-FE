@@ -11,6 +11,8 @@ import Energy from "./pages/Energy";
 import Partners from "./pages/Partners";
 import Activities from "./pages/Activities";
 import Volunteering from "./pages/Volunteering";
+import Events from "./pages/Events";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -25,9 +27,11 @@ function App() {
           <Energy path="/energy" />
           <Partners path="/partners" />
           <Contact path="/contact-us" />
+          <Events path="/events" />
           <ErrorDisplayer default />
         </Router>
       </PerfectScrollbar>
+      <Footer />
     </div>
   );
 }

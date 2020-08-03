@@ -17,18 +17,16 @@ export default function DatePickers({ label }) {
   const classes = useStyles();
 
   return (
-    <form className={classes.container} noValidate>
-      <TextField
-        id="date"
-        variant="outlined"
-        label={label}
-        type="date"
-        defaultValue="2017-05-24"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-    </form>
+    <TextField
+      id="date"
+      variant="outlined"
+      label={label}
+      type="date"
+      defaultValue="2017-05-24"
+      className={classes.textField}
+      InputLabelProps={{
+        shrink: true,
+      }}
+    />
   );
 }
