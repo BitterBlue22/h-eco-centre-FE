@@ -125,6 +125,10 @@ class EventsCalendar extends Component {
     ],
   };
 
+  handleOpenModal(event) {
+    alert(event.id);
+  }
+
   render() {
     return (
       <div>
@@ -136,7 +140,7 @@ class EventsCalendar extends Component {
             endAccessor="end"
             defaultDate={moment().toDate()}
             localizer={localizer}
-            onSelectEvent={(event) => alert(event.title)}
+            onSelectEvent={(event) => this.handleOpenModal(event)}
           />
         </div>
       </div>
