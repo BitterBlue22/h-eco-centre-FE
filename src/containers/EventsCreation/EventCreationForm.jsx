@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import DatePickers from "../../components/DatePicker";
 import TextBox from "../../components/TextBox";
+import TimePicker from "../../components/TimePicker";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,13 +27,13 @@ const EventCreationForm = () => {
   const classes = useStyles();
   return (
     <form>
-      <Grid container spacing={3} justify="space-evenly">
+      <Grid container spacing={3} justify="center" alignContent="center">
         <Grid item xs={12}>
           <Typography variant="h2" align="center">
             Event creation
           </Typography>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <TextField
             required
             id="event-title"
@@ -43,10 +44,27 @@ const EventCreationForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={3}>
           <DatePickers label={"Event date"} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={3}>
+          <TimePicker label={"Event start time"} />
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <TimePicker label={"Event end time"} />
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <TextField
+            required
+            id="event-location"
+            label="Location"
+            variant="outlined"
+            placeholder="e.g. lakehouse"
+            type="text"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             required
             id="event-organiser"
@@ -57,7 +75,7 @@ const EventCreationForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <TextField
             id="organiser-number"
             label="Organiser mobile number"
@@ -68,7 +86,7 @@ const EventCreationForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <TextField
             required
             id="organiser-email"
@@ -79,11 +97,14 @@ const EventCreationForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <Typography>Briefly describe the event</Typography>
           <TextBox required id={"event description"} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
+          <Typography>
+            Please specify the number of volunteers required
+          </Typography>
           <TextField
             required
             id="number-of-volunteers"
@@ -96,16 +117,16 @@ const EventCreationForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <Typography>
             Which types of volunteers do you require? This field is not
             mandatory.
           </Typography>
           <TextBox id={"volunteers required"} />
         </Grid>
-
-        <Grid item xs={12} md={6}></Grid>
-        <Button className={classes.button}>Submit</Button>
+        <Grid item xs={12}>
+          <Button className={classes.button}>Submit</Button>
+        </Grid>
       </Grid>
     </form>
   );
