@@ -1,6 +1,6 @@
 import React from "react";
 import { Paper } from "@material-ui/core";
-import EventsCalendar from "../components/EventsCalendar";
+import EventsCalendar from "../containers/EventsCalendar/EventsCalendar";
 
 const Events = () => {
   return (
