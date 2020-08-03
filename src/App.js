@@ -13,6 +13,7 @@ import Activities from "./pages/Activities";
 import Volunteering from "./pages/Volunteering";
 import Events from "./pages/Events";
 import Footer from "./components/Footer";
+import EventCreation from "./pages/EventCreation";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Partners path="/partners" />
           <Contact path="/contact-us" />
           <Events path="/events" />
+          <EventCreation path="event-creation" />
           <ErrorDisplayer default />
         </Router>
       </PerfectScrollbar>
