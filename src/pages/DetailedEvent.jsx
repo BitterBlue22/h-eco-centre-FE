@@ -10,11 +10,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DetailedEvent = () => {
+const DetailedEvent = (props) => {
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
-      <DetailedEventInfo />
+      <DetailedEventInfo data={props} />
     </Paper>
   );
 };
