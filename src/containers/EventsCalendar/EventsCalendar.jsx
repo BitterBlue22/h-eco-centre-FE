@@ -113,6 +113,8 @@ class EventsCalendar extends Component {
         title: "Today",
         start: new Date(new Date().setHours(new Date().getHours() - 3)),
         end: new Date(new Date().setHours(new Date().getHours() + 3)),
+        url:
+          "https://jquense.github.io/react-big-calendar/examples/index.html#api",
       },
       {
         id: 15,
@@ -134,6 +136,7 @@ class EventsCalendar extends Component {
             endAccessor="end"
             defaultDate={moment().toDate()}
             localizer={localizer}
+            onSelectEvent={(event) => alert(event.title)}
           />
         </div>
       </div>
