@@ -48,9 +48,10 @@ const Navigation = () => {
         to="/volunteer"
         component={Link}
       />
+      <Tab label="Events" {...a11yProps(7)} to="/events" component={Link} />
       <Tab
         label="Contact us"
-        {...a11yProps(7)}
+        {...a11yProps(8)}
         to="/contact-us"
         component={Link}
       />
