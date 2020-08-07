@@ -7,9 +7,6 @@ import {
   makeStyles,
   MenuItem,
 } from "@material-ui/core";
-import DatePickers from "../../components/DatePicker";
-import TextBox from "../../components/TextBox";
-import TimePicker from "../../components/TimePicker";
 import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(2),
     backgroundColor: theme.palette.secondary.main,
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
   },
   terms: {
     backgroundColor: "#f6d60e",
@@ -103,13 +105,55 @@ const EventCreationForm = () => {
           />
         </Grid>
         <Grid item xs={12} md={2}>
-          <DatePickers label={"Event date"} />
+          <TextField
+            id="date"
+            name="date"
+            variant="outlined"
+            label="Event date"
+            type="date"
+            defaultValue="2017-05-24"
+            className={classes.textField}
+            onChange={handleChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
         </Grid>
         <Grid item xs={12} md={2}>
-          <TimePicker label={"Event start time"} />
+          <TextField
+            id="time"
+            name="startTime"
+            label="Event Start"
+            type="time"
+            variant="outlined"
+            defaultValue="07:30"
+            className={classes.textField}
+            onChange={handleChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps={{
+              step: 300,
+            }}
+          />
         </Grid>
         <Grid item xs={12} md={2}>
-          <TimePicker label={"Event end time"} />
+          <TextField
+            id="time"
+            name="endTime"
+            label="Event End"
+            type="time"
+            variant="outlined"
+            defaultValue="14:30"
+            className={classes.textField}
+            onChange={handleChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps={{
+              step: 300,
+            }}
+          />
         </Grid>
         <Grid item xs={12} md={3}>
           <TextField
@@ -190,7 +234,18 @@ const EventCreationForm = () => {
         </Grid>
         <Grid item xs={12}>
           <Typography>Briefly describe the event</Typography>
-          <TextBox required id={"event description"} />
+          <TextField
+            id="event-description"
+            name="description"
+            label="Event description"
+            variant="outlined"
+            placeholder="Describe the event or tasks to be undertaken..."
+            rows={4}
+            value={allValues.description}
+            onChange={handleChange}
+            fullWidth
+            multiline
+          />
         </Grid>
         <Grid item xs={12}>
           <Typography>
@@ -216,10 +271,23 @@ const EventCreationForm = () => {
             Which types of volunteers do you require? This field is not
             mandatory.
           </Typography>
-          <TextBox id={"volunteers required"} />
+          <TextField
+            id="volunteers-required"
+            name="volunteerType"
+            label="Volunteer description"
+            variant="outlined"
+            placeholder="Mention any specific type of people required for this position, e.g. 'yoga instructor' or 'adults'..."
+            rows={4}
+            value={allValues.volunteerType}
+            onChange={handleChange}
+            fullWidth
+            multiline
+          />
         </Grid>
         <Grid item xs={12}>
-          <Button className={classes.button}>Submit</Button>
+          <Button className={classes.button} type="submit">
+            Submit
+          </Button>
         </Grid>
       </Grid>
     </form>
