@@ -31,24 +31,55 @@ const recurrance = [
 ];
 const EventCreationForm = () => {
   const classes = useStyles();
-  const [recurring, setRecurring] = React.useState("");
-
+  const [allValues, setAllValues] = React.useState({
+    title: "",
+    date: "",
+    startTime: "",
+    endTime: "",
+    recurrance: "",
+    location: "",
+    organiser: "",
+    mobile: "",
+    email: "",
+    description: "",
+    numberOfVolunteers: 0,
+    volunteerType: "",
+  });
   const handleChange = (event) => {
-    setRecurring(event.target.value);
+    setAllValues({ ...allValues, [event.target.name]: event.target.value });
   };
   const submit = (event) => {
     event.preventDefault();
-    const payload = {};
+    const payload = { ...allValues };
     Axios({
       url: "hosted-backend-url/volunteers",
       method: "POST",
       data: payload,
     })
-      .then(() => {})
+      .then((res) => {
+        console.log(res);
+      })
+      .then(() => {
+        setAllValues({
+          title: "",
+          date: "",
+          startTime: "",
+          endTime: "",
+          recurrance: "",
+          location: "",
+          organiser: "",
+          mobile: "",
+          email: "",
+          description: "",
+          numberOfVolunteers: 0,
+          volunteerType: "",
+        });
+      })
       .catch((err) => {
         console.log(err);
       });
   };
+  console.log(allValues);
   return (
     <form onSubmit={submit}>
       <Grid container spacing={3} justify="center" alignContent="center">
@@ -64,9 +95,10 @@ const EventCreationForm = () => {
             label="Event Title"
             variant="outlined"
             placeholder="e.g. Paddleboat Yoga"
+            name="title"
             type="text"
-            value={}
-            onChange={}
+            value={allValues.title}
+            onChange={handleChange}
             fullWidth
           />
         </Grid>
@@ -82,13 +114,14 @@ const EventCreationForm = () => {
         <Grid item xs={12} md={3}>
           <TextField
             required
-            id="event-location"
-            label="Recurring"
+            id="event-reccurance"
+            name="recurrance"
+            label="Recurrance"
             variant="outlined"
             placeholder="e.g. weekly"
-            helperText="How often does this event recur?"
+            helperText="How often does this event reccur?"
             select
-            value={recurring}
+            value={allValues.recurrance}
             onChange={handleChange}
             fullWidth
           >
@@ -103,12 +136,13 @@ const EventCreationForm = () => {
           <TextField
             required
             id="event-location"
+            name="location"
             label="Location"
             variant="outlined"
             placeholder="e.g. lakehouse"
             type="text"
-            value={}
-            onChange={}
+            value={allValues.location}
+            onChange={handleChange}
             fullWidth
           />
         </Grid>
@@ -116,25 +150,27 @@ const EventCreationForm = () => {
           <TextField
             required
             id="event-organiser"
+            name="organiser"
             label="Event organiser"
             variant="outlined"
             placeholder="e.g. Mike Smith"
             type="text"
-            value={}
-            onChange={}
+            value={allValues.organiser}
+            onChange={handleChange}
             fullWidth
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             id="organiser-number"
+            name="mobile"
             label="Organiser mobile number"
             variant="outlined"
             placeholder="e.g. 085 6587 1512"
             type="tel"
             pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-            value={}
-            onChange={}
+            value={allValues.mobile}
+            onChange={handleChange}
             fullWidth
           />
         </Grid>
@@ -142,12 +178,13 @@ const EventCreationForm = () => {
           <TextField
             required
             id="organiser-email"
+            name="email"
             label="Organiser email"
             variant="outlined"
             placeholder="e.g. mikes@gmail.com"
             type="email"
-            value={}
-            onChange={}
+            value={allValues.email}
+            onChange={handleChange}
             fullWidth
           />
         </Grid>
@@ -162,14 +199,15 @@ const EventCreationForm = () => {
           <TextField
             required
             id="number-of-volunteers"
+            name="numberOfVolunteers"
             label="Volunteers required"
             variant="outlined"
             placeholder="1"
             type="number"
             min="0"
             max="100"
-            value={}
-            onChange={}
+            value={allValues.numberOfVolunteers}
+            onChange={handleChange}
             fullWidth
           />
         </Grid>
