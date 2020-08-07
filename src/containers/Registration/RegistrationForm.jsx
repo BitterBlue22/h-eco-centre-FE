@@ -9,9 +9,10 @@ import {
   FormControlLabel,
   FormHelperText,
   FormControl,
+  FormGroup,
+  FormLabel,
 } from "@material-ui/core";
 import DaysChecklist from "./DaysChecklist";
-import InterestsChecklist from "./InterestsChecklist";
 import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
 
 const RegistrationForm = () => {
   const classes = useStyles();
+  const [interests, setInterests] = React.useState({
+    Activities: false,
+    Conservation: false,
+    Energy: false,
+    Gym: false,
+  });
   const [allValues, setAllValues] = React.useState({
     firstName: "",
     lastName: "",
@@ -46,23 +53,27 @@ const RegistrationForm = () => {
     homeNumber: "",
     email: "",
     dob: "",
-    availability: "",
-    interests: "",
+    availability: [],
     specialSkills: "",
     disability: "",
     terms: false,
   });
   const { terms } = allValues;
-  const error = terms === false;
+  const { Activities, Conservation, Energy, Gym } = interests;
+  const errorTerms = terms === false;
+  const errorInterests =
+    [Activities, Conservation, Energy, Gym].filter((activity) => activity)
+      .length < 1;
   const handleChange = (event) => {
     setAllValues({
       ...allValues,
       [event.target.name]: event.target.value || event.target.checked,
     });
+    setInterests({ ...interests, [event.target.name]: event.target.checked });
   };
   const submit = (event) => {
     event.preventDefault();
-    const payload = { ...allValues };
+    const payload = { ...allValues, ...interests };
     Axios({
       url: "hosted-backend-url/volunteers",
       method: "POST",
@@ -82,16 +93,22 @@ const RegistrationForm = () => {
           email: "",
           dob: "",
           availability: "",
-          interests: "",
           specialSkills: "",
           disability: "",
           terms: false,
+        });
+        setInterests({
+          Activities: false,
+          Conservation: false,
+          Energy: false,
+          Gym: false,
         });
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  console.log("interests", interests, "other", allValues);
   return (
     <form onSubmit={submit}>
       <Grid container spacing={3} justify="space-evenly">
@@ -217,7 +234,55 @@ const RegistrationForm = () => {
           <Typography>
             Which areas are you interested in volunteering?
           </Typography>
-          <InterestsChecklist />
+          <FormControl
+            required
+            error={errorInterests}
+            component="fieldset"
+            className={classes.formControl}
+          >
+            <FormLabel component="legend">Pick one or more</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={Activities}
+                    onChange={handleChange}
+                    name="Activities"
+                  />
+                }
+                label="Recreational Activities/Sports Coaching/Support"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={Energy}
+                    onChange={handleChange}
+                    name="Energy"
+                  />
+                }
+                label="Renewable Energy/Green Technologies"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={Conservation}
+                    onChange={handleChange}
+                    name="Conservation"
+                  />
+                }
+                label="Conservation/Environmental/Wildlife"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox checked={Gym} onChange={handleChange} name="Gym" />
+                }
+                label="Green Gym/Social Prescribing Project"
+              />
+            </FormGroup>
+            <FormHelperText>
+              Please select one or more of the above options
+            </FormHelperText>
+          </FormControl>
         </Grid>
         <Grid item xs={12}>
           <Typography>
@@ -273,7 +338,7 @@ const RegistrationForm = () => {
         <Grid item xs={12}>
           <FormControl
             required
-            error={error}
+            error={errorTerms}
             component="fieldset"
             className={classes.formControl}
           >
