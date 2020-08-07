@@ -12,7 +12,6 @@ import {
   FormGroup,
   FormLabel,
 } from "@material-ui/core";
-import DaysChecklist from "./DaysChecklist";
 import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,6 +43,16 @@ const RegistrationForm = () => {
     Energy: false,
     Gym: false,
   });
+  const [availability, setAvailability] = React.useState({
+    Monday: false,
+    Tuesday: false,
+    Wednesday: false,
+    Thursday: false,
+    Friday: false,
+    Saturday: false,
+    Sunday: false,
+    All: false,
+  });
   const [allValues, setAllValues] = React.useState({
     firstName: "",
     lastName: "",
@@ -53,27 +62,60 @@ const RegistrationForm = () => {
     homeNumber: "",
     email: "",
     dob: "",
-    availability: [],
     specialSkills: "",
     disability: "",
     terms: false,
   });
   const { terms } = allValues;
   const { Activities, Conservation, Energy, Gym } = interests;
+  const {
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday,
+    All,
+  } = availability;
   const errorTerms = terms === false;
   const errorInterests =
     [Activities, Conservation, Energy, Gym].filter((activity) => activity)
       .length < 1;
+  const errorAvailability =
+    [
+      Monday,
+      Tuesday,
+      Wednesday,
+      Thursday,
+      Friday,
+      Saturday,
+      Sunday,
+      All,
+    ].filter((day) => day).length < 1;
   const handleChange = (event) => {
     setAllValues({
       ...allValues,
       [event.target.name]: event.target.value || event.target.checked,
     });
+  };
+  const handleAvailChange = (event) => {
+    setAvailability({
+      ...availability,
+      [event.target.name]: event.target.checked,
+    });
+  };
+  const handleInterestChange = (event) => {
     setInterests({ ...interests, [event.target.name]: event.target.checked });
   };
+
   const submit = (event) => {
     event.preventDefault();
-    const payload = { ...allValues, ...interests };
+    const payload = {
+      ...allValues,
+      interests: { ...interests },
+      availability: { ...availability },
+    };
     Axios({
       url: "hosted-backend-url/volunteers",
       method: "POST",
@@ -92,7 +134,6 @@ const RegistrationForm = () => {
           homeNumber: "",
           email: "",
           dob: "",
-          availability: "",
           specialSkills: "",
           disability: "",
           terms: false,
@@ -103,12 +144,22 @@ const RegistrationForm = () => {
           Energy: false,
           Gym: false,
         });
+        setAvailability({
+          Monday: false,
+          Tuesday: false,
+          Wednesday: false,
+          Thursday: false,
+          Friday: false,
+          Saturday: false,
+          Sunday: false,
+          All: false,
+        });
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  console.log("interests", interests, "other", allValues);
+
   return (
     <form onSubmit={submit}>
       <Grid container spacing={3} justify="space-evenly">
@@ -228,7 +279,99 @@ const RegistrationForm = () => {
           <Typography>
             Which days are you usually available to volunteer?
           </Typography>
-          <DaysChecklist />
+          <FormControl
+            required
+            error={errorAvailability}
+            component="fieldset"
+            className={classes.formControl}
+          >
+            <FormLabel component="legend">Pick one or more</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={Monday}
+                    onChange={handleAvailChange}
+                    name="Monday"
+                  />
+                }
+                label="Monday"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={Tuesday}
+                    onChange={handleAvailChange}
+                    name="Tuesday"
+                  />
+                }
+                label="Tuesday"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={Wednesday}
+                    onChange={handleAvailChange}
+                    name="Wednesday"
+                  />
+                }
+                label="Wednesday"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={Thursday}
+                    onChange={handleAvailChange}
+                    name="Thursday"
+                  />
+                }
+                label="Thursday"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={Friday}
+                    onChange={handleAvailChange}
+                    name="Friday"
+                  />
+                }
+                label="Friday"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={Saturday}
+                    onChange={handleAvailChange}
+                    name="Saturday"
+                  />
+                }
+                label="Saturday"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={Sunday}
+                    onChange={handleAvailChange}
+                    name="Sunday"
+                  />
+                }
+                label="Sunday"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={All}
+                    onChange={handleAvailChange}
+                    name="All"
+                  />
+                }
+                label="All"
+              />
+            </FormGroup>
+            <FormHelperText>
+              Please select one or more of the above options
+            </FormHelperText>
+          </FormControl>
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography>
@@ -246,7 +389,7 @@ const RegistrationForm = () => {
                 control={
                   <Checkbox
                     checked={Activities}
-                    onChange={handleChange}
+                    onChange={handleInterestChange}
                     name="Activities"
                   />
                 }
@@ -256,7 +399,7 @@ const RegistrationForm = () => {
                 control={
                   <Checkbox
                     checked={Energy}
-                    onChange={handleChange}
+                    onChange={handleInterestChange}
                     name="Energy"
                   />
                 }
@@ -266,7 +409,7 @@ const RegistrationForm = () => {
                 control={
                   <Checkbox
                     checked={Conservation}
-                    onChange={handleChange}
+                    onChange={handleInterestChange}
                     name="Conservation"
                   />
                 }
@@ -274,7 +417,11 @@ const RegistrationForm = () => {
               />
               <FormControlLabel
                 control={
-                  <Checkbox checked={Gym} onChange={handleChange} name="Gym" />
+                  <Checkbox
+                    checked={Gym}
+                    onChange={handleInterestChange}
+                    name="Gym"
+                  />
                 }
                 label="Green Gym/Social Prescribing Project"
               />
@@ -357,7 +504,9 @@ const RegistrationForm = () => {
             </FormHelperText>
           </FormControl>
         </Grid>
-        <Button className={classes.button}>Submit</Button>
+        <Button className={classes.button} type="submit">
+          Submit
+        </Button>
       </Grid>
     </form>
   );
