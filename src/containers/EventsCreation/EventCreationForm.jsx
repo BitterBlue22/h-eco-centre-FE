@@ -5,10 +5,12 @@ import {
   Typography,
   Button,
   makeStyles,
+  MenuItem,
 } from "@material-ui/core";
 import DatePickers from "../../components/DatePicker";
 import TextBox from "../../components/TextBox";
 import TimePicker from "../../components/TimePicker";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,11 +24,33 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#f6d60e",
   },
 }));
-
+const recurrance = [
+  { value: "once-off" },
+  { value: "weekly" },
+  { value: "monthly" },
+];
 const EventCreationForm = () => {
   const classes = useStyles();
+  const [recurring, setRecurring] = React.useState("");
+
+  const handleChange = (event) => {
+    setRecurring(event.target.value);
+  };
+  const submit = (event) => {
+    event.preventDefault();
+    const payload = {};
+    axios({
+      url: "hosted-backend-url/volunteers",
+      method: "POST",
+      data: payload,
+    })
+      .then(() => {})
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
-    <form>
+    <form onSubmit={submit}>
       <Grid container spacing={3} justify="center" alignContent="center">
         <Grid item xs={12}>
           <Typography variant="h2" align="center">
@@ -41,17 +65,39 @@ const EventCreationForm = () => {
             variant="outlined"
             placeholder="e.g. Paddleboat Yoga"
             type="text"
+            value={}
+            onChange={}
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={2}>
           <DatePickers label={"Event date"} />
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={2}>
           <TimePicker label={"Event start time"} />
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={2}>
           <TimePicker label={"Event end time"} />
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <TextField
+            required
+            id="event-location"
+            label="Recurring"
+            variant="outlined"
+            placeholder="e.g. weekly"
+            helperText="How often does this event recur?"
+            select
+            value={recurring}
+            onChange={handleChange}
+            fullWidth
+          >
+            {recurrance.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.value}
+              </MenuItem>
+            ))}
+          </TextField>
         </Grid>
         <Grid item xs={12} md={3}>
           <TextField
@@ -61,6 +107,8 @@ const EventCreationForm = () => {
             variant="outlined"
             placeholder="e.g. lakehouse"
             type="text"
+            value={}
+            onChange={}
             fullWidth
           />
         </Grid>
@@ -72,6 +120,8 @@ const EventCreationForm = () => {
             variant="outlined"
             placeholder="e.g. Mike Smith"
             type="text"
+            value={}
+            onChange={}
             fullWidth
           />
         </Grid>
@@ -83,6 +133,8 @@ const EventCreationForm = () => {
             placeholder="e.g. 085 6587 1512"
             type="tel"
             pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+            value={}
+            onChange={}
             fullWidth
           />
         </Grid>
@@ -94,6 +146,8 @@ const EventCreationForm = () => {
             variant="outlined"
             placeholder="e.g. mikes@gmail.com"
             type="email"
+            value={}
+            onChange={}
             fullWidth
           />
         </Grid>
@@ -114,6 +168,8 @@ const EventCreationForm = () => {
             type="number"
             min="0"
             max="100"
+            value={}
+            onChange={}
             fullWidth
           />
         </Grid>
