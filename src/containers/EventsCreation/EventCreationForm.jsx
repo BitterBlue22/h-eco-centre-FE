@@ -10,7 +10,7 @@ import {
 import DatePickers from "../../components/DatePicker";
 import TextBox from "../../components/TextBox";
 import TimePicker from "../../components/TimePicker";
-import axios from "axios";
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +39,7 @@ const EventCreationForm = () => {
   const submit = (event) => {
     event.preventDefault();
     const payload = {};
-    axios({
+    Axios({
       url: "hosted-backend-url/volunteers",
       method: "POST",
       data: payload,
