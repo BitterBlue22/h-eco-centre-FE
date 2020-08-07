@@ -284,11 +284,11 @@ const EventCreationForm = () => {
             multiline
           />
         </Grid>
-        <Grid item xs={12}>
-          <Button className={classes.button} type="submit">
-            Submit
-          </Button>
-        </Grid>
+      </Grid>
+      <Grid container justify="center">
+        <Button className={classes.button} type="submit">
+          Submit
+        </Button>
       </Grid>
     </form>
   );
