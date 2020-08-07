@@ -5,11 +5,14 @@ import {
   Typography,
   Button,
   makeStyles,
+  Checkbox,
+  FormControlLabel,
+  FormHelperText,
+  FormControl,
 } from "@material-ui/core";
 import DaysChecklist from "./DaysChecklist";
 import InterestsChecklist from "./InterestsChecklist";
 import Axios from "axios";
-import Terms from "../../components/Terms";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
   terms: {
     backgroundColor: "#f6d60e",
+  },
+  formControl: {
+    margin: theme.spacing(3),
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -46,8 +52,13 @@ const RegistrationForm = () => {
     disability: "",
     terms: false,
   });
+  const { terms } = allValues;
+  const error = terms === false;
   const handleChange = (event) => {
-    setAllValues({ ...allValues, [event.target.name]: event.target.value });
+    setAllValues({
+      ...allValues,
+      [event.target.name]: event.target.value || event.target.checked,
+    });
   };
   const submit = (event) => {
     event.preventDefault();
@@ -260,7 +271,26 @@ const RegistrationForm = () => {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <Terms />
+          <FormControl
+            required
+            error={error}
+            component="fieldset"
+            className={classes.formControl}
+          >
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={terms}
+                  onChange={handleChange}
+                  name="terms"
+                />
+              }
+              label="Do you agree to the Positive Activities Privacy Policy and Terms and Conditions linked above? *"
+            />
+            <FormHelperText>
+              Please read the terms and conditions.
+            </FormHelperText>
+          </FormControl>
         </Grid>
         <Button className={classes.button}>Submit</Button>
       </Grid>
